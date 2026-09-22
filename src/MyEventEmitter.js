@@ -36,7 +36,7 @@ class MyEventEmitter {
 
   emit(event, ...args) {
     if (Array.isArray(this.events[event])) {
-      this.events[event].forEach((listener) => {
+      [...this.events[event]].forEach((listener) => {
         listener.func.call(this, ...args);
 
         if (listener.isOnce) {
@@ -64,7 +64,7 @@ class MyEventEmitter {
 
   removeAllListeners(event) {
     if (event) {
-      this.events[event] = null;
+      delete this.events[event];
     } else {
       this.events = {};
     }
